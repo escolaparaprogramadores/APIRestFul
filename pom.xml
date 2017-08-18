@@ -82,11 +82,12 @@
 			<version>3.4</version>
 		</dependency>
 		
-		<!-- Metamodel -->
+		<!-- Metamodel 
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-jpamodelgen</artifactId>
 		</dependency>
+		-->
 		
 		<!-- Spring Security -->
 		<dependency>
