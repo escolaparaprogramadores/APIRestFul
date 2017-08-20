@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mark.api.evet.RecursoCriadoEvent;
 import com.mark.api.model.Pessoa;
 import com.mark.api.repository.PessoaRepository;
+import com.mark.api.repository.filter.PessoaFilter;
 import com.mark.api.service.PessoaService;
 
 @RestController
@@ -38,6 +39,11 @@ public class PessoaResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@GetMapping
+	public List<Pessoa> pesquisar(PessoaFilter pessoaFilter) {
+		return pessoaRepository.filtrar(pessoaFilter);
+	}
 
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")

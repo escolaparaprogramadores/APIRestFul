@@ -82,7 +82,7 @@
 			<version>3.4</version>
 		</dependency>
 		
-		<!-- Metamodel 
+		<!-- Metamodel *** Retirar em produção, pois da erro no Heroku
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-jpamodelgen</artifactId>
