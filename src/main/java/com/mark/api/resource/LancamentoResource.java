@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mark.api.evet.RecursoCriadoEvent;
 import com.mark.api.exceptionhandler.ApiExceptionHandler.Erro;
 import com.mark.api.model.Lancamento;
+import com.mark.api.model.Pessoa;
 import com.mark.api.repository.LancamentoRepository;
 import com.mark.api.repository.filter.LancamentoFilter;
 import com.mark.api.repository.projection.ResumoLancamento;
@@ -93,6 +95,26 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('write')")
 	public void remover(@PathVariable Long codigo) {
 		lancamentoRepository.delete(codigo);
+	}
+	
+//	@PutMapping("/{codigo}")
+//	@PreAuthorize("hasAuthority('ROLE_ATUALIZAR_PESSOA') and #oauth2.hasScope('write')")
+//	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
+//		Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
+//		return ResponseEntity.ok(pessoaSalva);
+//	}
+	
+	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_ATUALIZAR_PESSOA') and #oauth2.hasScope('write')")
+	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lancamento){
+		try {
+			Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
+			return ResponseEntity.ok(lancamentoSalvo);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		
 	}
 	
 }
